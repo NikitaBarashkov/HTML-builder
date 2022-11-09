@@ -7,6 +7,10 @@ const rl = readLine.createInterface({ input, output });
 
 console.log('Do you wanna write something? ');
 
+fs.createWriteStream(path.join('02-write-file', 'text.txt'), (err)=>{
+  if(err) throw err;
+})
+
 rl.on('line', (line) => {
   if(line !== 'exit'){
     fs.appendFile(path.join('02-write-file', 'text.txt'), `${line}\n`, ()=>{

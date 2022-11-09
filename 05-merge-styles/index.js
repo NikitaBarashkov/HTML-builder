@@ -25,10 +25,6 @@ fs.readdir(path.join('05-merge-styles', 'styles'), (err, files)=>{
             restream.on('data', data=>{
               arrStyles.push(data.toString());
 
-              fs.mkdir(path.join('05-merge-styles', 'project-dist'), {recursive: true}, (err)=>{
-                if(err) throw err;
-              })
-
               if(arrStyles.length > 0){
                 fs.appendFile(path.join('05-merge-styles', 'project-dist', 'bundle.css'), arrStyles[arrStyles.length - 1], (err)=>{
                   if(err) throw err;
