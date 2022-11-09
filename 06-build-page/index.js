@@ -10,14 +10,18 @@ fs.mkdir(path.join('06-build-page', 'project-dist'), {recursive: true}, (err)=>{
         if(err) throw err;
         fs.readdir(path.join('06-build-page', 'components'), (err, comps)=>{
           if(err) throw err;
+          let countChangedComp = 0;
           comps.forEach(comp =>{ 
             fs.readFile(path.join('06-build-page', 'components', comp), 'utf-8', (err, elem)=>{
               if(err) throw err;
               let elemName = `{{${path.basename(comp, path.extname(comp))}}}`;
               indexFile = indexFile.toString().replace(elemName, elem);
-              fs.writeFile(path.join('06-build-page', 'project-dist', 'index.html'), indexFile, (err) => {
-                if(err) throw err;
-              });
+              countChangedComp++;
+              if(countChangedComp == comps.length){
+                fs.writeFile(path.join('06-build-page', 'project-dist', 'index.html'), indexFile, (err) => {
+                  if(err) throw err;
+                });
+              }
             })
           })
         })
